@@ -8,6 +8,23 @@
 
 #show: thmrules
 
+#show: simple-theme.with(
+  aspect-ratio: "16-9",
+  footer: [Lean4を用いたGödelの第一/第二不完全性定理の形式化],
+  config-colors(
+    primary: rgb("#000000"),
+    secondary: rgb("#aaaaaa"),
+    tertiary: rgb("#dddddd"),
+    neutral-lightest: rgb("#ffffff"),
+    neutral-darkest: rgb("#000000"),
+  ),
+)
+
+#set text(size: 18pt, font: "Shippori Mincho B1", lang: "ja")
+#show raw: set text(font: ("JuliaMono", "Noto Sans CJK JP"))
+#show math.equation: set text(font: ("New Computer Modern Math", "Shippori Mincho B1"))
+#set heading(numbering: numbly("{1}.", default: "1.1"))
+
 #let sqthmbox(name, title, base: "heading") = thmbox(
   name,
   title,
@@ -68,23 +85,6 @@
 #let qed = $square$
 
 #let sourcecode = sourcecode.with(frame: none)
-
-#show: simple-theme.with(
-  aspect-ratio: "16-9",
-  footer: [Lean4を用いたGödelの第一/第二不完全性定理の形式化],
-  config-colors(
-    primary: rgb("#000000"),
-    secondary: rgb("#aaaaaa"),
-    tertiary: rgb("#dddddd"),
-    neutral-lightest: rgb("#ffffff"),
-    neutral-darkest: rgb("#000000"),
-  ),
-)
-
-#set text(size: 18pt, font: "Shippori Mincho B1 OTF", lang: "ja")
-#show raw: set text(font: ("JuliaMono", "Noto Sans CJK JP"))
-#show math.equation: set text(font: ("New Computer Modern Math", "Shippori Mincho B1 OTF"))
-#set heading(numbering: numbly("{1}.", default: "1.1"))
 
 #title-slide[
   #text(size: 50pt, weight: "bold")[
