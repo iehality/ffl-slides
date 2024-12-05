@@ -72,19 +72,20 @@
   }
 
 #let proves = $tack.r$
+
 #let nproves = $tack.r.not$
 
 #let uprsans(X) = $upright(sans(#X))$
 
 #let PA = $uprsans("PA")$
+
 #let CobhamR0 = $uprsans("R"_0)$
+
 #let Ind(X) = $uprsans("I")#X$
 
 #let Robinson = $uprsans("Q")$
 
 #let qed = $square$
-
-#let sourcecode = sourcecode.with(frame: none)
 
 #title-slide[
   #text(size: 50pt, weight: "bold")[
@@ -96,6 +97,8 @@
   齋藤彰悟
 
   #text(size: 18pt, font: "Noto Sans CJK JP", lang: "ja")[東北大学大学院理学研究科数学専攻]
+
+  #datetime.today().display()
 ]
 
 == FFL
@@ -112,11 +115,10 @@
 
 理論 $T$ を計算可能な一階算術の理論とする．
 #theorem([不完全性定理])[
-  #align(left)[
   / (G1):
     $T$ が基礎的な算術を扱える程度に強く，まともならば， $T$ から証明も反証もできない論理式が存在する．
   / (G2):
-    $T$ が十分強く，無矛盾ならば，$T$ の無矛盾性を表す文は証明できない．]
+    $T$ が十分強く，無矛盾ならば，$T$ の無矛盾性を表す文は証明できない．
 ]
 
 / 1986(!), Shanker: NqthmによるG1の形式化．
@@ -131,21 +133,18 @@
   - 私が知る限り唯一の第二不完全性定理の形式化#footnote[ただし可証性条件を仮定した上でのG2の証明はいくつか存在する．]．
 
 #theorem([Formalized by Paulson])[
-  #align(left)[
     / (G1): $sans("HF")$ からは証明も反証もできない論理式が存在する．
     / (G2): 自己の無矛盾性を表す文は $sans("HF")$ からは証明できない．
-  ]
 ]
 
 #pagebreak()
 
 次の不完全性定理の一つのバリエーションを形式化した#footnote[後述するように完全性定理を用いているため非構成的．]：
 #theorem[
-  #align(left)[
   / (G1):
     $T$ が $sans(upright(R)_0)$ より強く$Sigma_1$-健全ならば， $T$ から証明も反証もできない論理式が存在する．
   / (G2):
-    $T$ が $sans(upright("I"))Sigma_1$ より強く無矛盾ならば， $T$ の無矛盾性を表す文は証明できない．]
+    $T$ が $sans(upright("I"))Sigma_1$ より強く無矛盾ならば， $T$ の無矛盾性を表す文は証明できない．
 ]
 - $Sigma_1$-健全：$T$ から証明可能な $Sigma_1$文は標準モデルの上で真．
 - $sans(upright("R"_0))$ : Cobham の最弱の算術．
@@ -397,11 +396,7 @@ $==>$ 方向（健全性定理）は証明に関する帰納法により従う�
   ]
 ]
 
-
-
-#let ISigma(i) = $sans(upright("I"))Sigma_(#i)$
-
-= $ISigma(1)$の内部で算術を展開する
+= $Ind(Sigma_1)$の内部で算術を展開する
 
 == 算術の公理系を定義する
 
@@ -563,7 +558,7 @@ instance Language.isSemiterm_definable : 𝚫₁-Relation L.IsSemiterm := by ...
 $ x in y <==> "Bit"(x, y) <==> floor(y \/ 2^x) mod 2 = 1 $
 
 Ackermann coding によって遺伝的有限集合 $V_omega$ が扱える．
-$ISigma(1)$ のもとで基礎的な集合論が展開できる．
+$Ind(Sigma_1)$ のもとで基礎的な集合論が展開できる．
 
 #sourcecode[```lean
   theorem finset_comprehension₁ {Γ} {P : V → Prop} (hP : Γ-[1]-Predicate P) (a : V) :
@@ -586,7 +581,7 @@ $ISigma(1)$ のもとで基礎的な集合論が展開できる．
 
 == 原始再帰
 
-$ISigma(1)$では原始再帰法を用いて関数を定義できる．
+$Ind(Sigma_1)$では原始再帰法を用いて関数を定義できる．
 #text(size: 14pt)[
 #theorem[
   $f(arrow(v)), g(arrow(v), x, z)$ を $Sigma_1$ 定義可能な関数とする．
@@ -597,7 +592,7 @@ $ISigma(1)$では原始再帰法を用いて関数を定義できる．
   $
 ]]
 
-#align(center)[#text(size: 9pt)[#sourcecode[```lean
+#text(size: 9pt)[#sourcecode[```lean
 structure Blueprint (k : ℕ) where
   zero : 𝚺₁-Semisentence (k + 1)
   succ : 𝚺₁-Semisentence (k + 3)
@@ -619,7 +614,7 @@ theorem Construction.result_zero :
 
 theorem Construction.result_succ (u : V) :
     c.result v (u + 1) = c.succ v u (c.result v u)
-```]]]
+```]]
 
 == 再帰的定義
 #theorem[
@@ -721,8 +716,7 @@ $
        hat(p or q) &:= brak(5, p, q) + 1 $],
     [$ hat(forall p) &:= brak(6, p) + 1 \
        hat(exists p) &:= brak(7, p) + 1 $]    
-)]]
-]
+)]]]
 
 擬項のときと同様にして形式化された擬論理式を指す $Delta_1$述語 `IsSemiformula n p : Prop` が定義される．
 
@@ -811,8 +805,7 @@ $D^T_bold(C)$ の不動点を取って `T.Derivation` とする．以下のよ�
 == 可証性条件
 
 #lemma[
-  #align(left)[
-    $T$ を $ISigma(1)$より強い理論， $U$ を $sans(upright("R")_0)$ より強い $Delta_1$定義可能な理論だとする． このとき，
+    $T$ を $Ind(Sigma_1)$より強い理論， $U$ を $sans(upright("R")_0)$ より強い $Delta_1$定義可能な理論だとする． このとき，
     / D1: $U proves sigma ==> T proves "Provable"_U (ceil(sigma))$
     / D2: $T proves "Provable"_U (ceil(sigma -> tau)) -> "Provable"_U (ceil(sigma)) -> "Provable"_U (ceil(tau))$
     / D3: $T proves "Provable"_U (ceil(sigma)) -> "Provable"_U (ceil("Provable"_U (ceil(sigma))))$
@@ -822,7 +815,6 @@ $D^T_bold(C)$ の不動点を取って `T.Derivation` とする．以下のよ�
     ]
     更に次が成り立つ．
     / D1': $U proves sigma <==> T proves "Provable"_U (ceil(sigma))$
-  ]
 ]
 
 #pagebreak()
@@ -855,7 +847,7 @@ D1 及び D2, D1' は形式化された証明の性質を地道に証明すれ�
 D3 は直接示すのは難しいが，次の補題より従う．
 
 #lemma([形式化された $Sigma_1$-完全性])[
-  $T$ を $ISigma(1)$より強い理論， $U$ を $sans(upright("R")_0)$ より強い $Delta_1$定義可能な理論だとする． 
+  $T$ を $Ind(Sigma_1)$より強い理論， $U$ を $sans(upright("R")_0)$ より強い $Delta_1$定義可能な理論だとする． 
   文 $sigma$ が $Sigma_1$論理式ならば，次が証明可能．
   $ T proves sigma -> "Provable"_U (ceil(sigma)) $
 ]
@@ -882,9 +874,11 @@ D3 は直接示すのは難しいが，次の補題より従う．
 == 第一不完全性定理
 
 G1 は 1, 2, 3, 4 までの結果で証明できる．
+
 #theorem([G1])[
   $T$ が $Delta_1$ 定義可能で $sans(upright(R)_0)$ より強く $Sigma_1$-健全ならば， $T$ から証明も反証もできない論理式が存在する．
 ]
+
 #text(size: 15pt)[
 / 証明:
   $D := {ceil(phi) | phi: "1変数の論理式", T proves not phi(ceil(phi)) }$ と定義する．
@@ -931,16 +925,17 @@ theorem goedel_first_incompleteness : ¬System.Complete T := by
 
 #lemma([不動点補題])[
   1変数の論理式 $theta$ について，次を満たす 文 $"fixpoint"_theta$ が存在する．
-  $ ISigma(1) proves "fixpoint"_theta <-> theta(ceil("fixpoint"_theta)) $
+  $ Ind(Sigma_1) proves "fixpoint"_theta <-> theta(ceil("fixpoint"_theta)) $
 ]
+
 #text(size: 12pt)[
 / 証明:
   形式化された論理式に数項を代入する関数のグラフ $"substNumeral"(y, p, x)$ は $Sigma_1$ 定義可能．
-  $ ISigma(1) proves "substNumeral"(y, p, x) <-> y = p(overline(x)) $
+  $ Ind(Sigma_1) proves "substNumeral"(y, p, x) <-> y = p(overline(x)) $
   $"fixpoint"_theta$ を次のように定義する．
   $ "diag"_theta (x) &:= (forall y)["substNumeral"(y, x, x) -> theta(y)] \
     "fixpoint"_theta &:= "diag"_theta (ceil("diag"_theta)) $
-  このとき，$ISigma(1)$ に於いて，
+  このとき，$Ind(Sigma_1)$ に於いて，
 
   $ "fixpoint"_theta &eq.def (forall y)["substNumeral"(y, ceil("diag"_theta), ceil("diag"_theta)) -> theta(y)] \
     &<-> theta (ceil("diag"_theta (ceil("diag"_theta)))) \
@@ -955,7 +950,7 @@ theorem goedel_first_incompleteness : ¬System.Complete T := by
 Gödel文  「この文は証明できない」を定義する．
 $goedelSentence_T &:= "fixpoint"_(not "Provable"_T)$
 
-以降 $T$ を $ISigma(1)$ より強い理論とする．
+以降 $T$ を $Ind(Sigma_1)$ より強い理論とする．
 #lemma[
   1. $T$ が無矛盾ならば $T tack.r.not goedelSentence_T$，
   2. $NN models T$ ならば $T tack.not not goedelSentence_T.$ ]<g-independent>
