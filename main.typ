@@ -21,7 +21,7 @@
 )
 
 #set text(size: 18pt, font: "Shippori Mincho B1", lang: "ja")
-#show raw: set text(font: ("JuliaMono", "Noto Sans CJK JP"))
+#show raw: set text(font: ("JuliaMono", "Noto Sans JP"))
 #show math.equation: set text(font: ("New Computer Modern Math", "Shippori Mincho B1"))
 #set heading(numbering: numbly("{1}.", default: "1.1"))
 

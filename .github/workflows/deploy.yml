@@ -32,10 +32,10 @@ jobs:
           font-name: Shippori Antique B1
       - name: Install "Julia Mono"
         uses: SnO2WMaN/install-juliamono-action@v0.0.1
-      - name: Install "Noto Sans Japanese"
+      - name: Install "Noto Sans JP"
         uses: SnO2WMaN/install-fontsource-action@v0.0.1
         with:
-          font-name: Noto Sans Japanese
+          font-name: Noto Sans JP
       - uses: typst-community/setup-typst@v3
       - run: typst fonts
       - run: typst compile main.typ main.pdf
